@@ -1,0 +1,153 @@
+{
+  "host": "http://localhost:",
+  "port": "4000",
+  "jwt_expiretime": "36000",
+  "channelName": "mychannel",
+
+  "task": {
+    "instance":  {
+      "item": "INSTANCES",
+      "title": "TACHES EN INSTANCE"
+    }
+    ,
+    "done": {
+      "admin": {
+        "item": "SIGNES",
+        "title": "TACHES TERMINEES"
+      },
+      "officer": {
+        "item": "SIGNES",
+        "title": "TACHES TERMINEES"
+      },
+      "secretary": {
+        "item": "TRANSMIS",
+        "title": "TACHES TRANSMISES"
+      }
+    },
+    "signed": {
+      "secretary": {
+        "item": "SIGNES",
+        "title": "TACHES SIGNEES"
+      }
+    },
+    "reject":  {
+      "item": "REJETS",
+      "title": "TACHES REJETEES"
+    }
+  },
+
+  "STATUS": {
+    "ENROLLED": "enrolled",
+    "NEW": "new",
+    "REVOCATED": "revocated"
+  },
+  "ROLES": {
+    "ADMIN": "admin",
+    "OFFICER": "officer",
+    "SECRETARY": "secretary",
+    "VISITOR": "visitor",
+    "ARCHIVIST": "archivist"
+  },
+
+  "role": {
+    "secretary": {
+      "instance": "0",
+      "done": "1",
+      "signed": "2",
+      "correction": "3",
+      "reject": "3",
+      "notes": {
+        "instance": "new",
+        "done": "Transmitted"
+      }
+    },
+    "officer": {
+      "instance": "1",
+      "done": "2",
+      "reject": "3",
+      "notes": {
+        "instance": "rejected",
+        "done": "Signed"
+      }
+    },
+    "admin": {
+      "instance": "1",
+      "done": "2",
+      "reject": "3",
+      "notes": "Signed"
+    },
+
+    "archivist": {
+      "instance": "2",
+      "done": "5",
+      "reject": "3",
+      "notes": "Archived"
+    },
+
+    "visitor": {
+      "instance": "0",
+      "done": "1",
+      "notes": "Transmitted"
+    }
+  },
+
+  "position": {
+    "Saisie": "Saisie",
+    "Transmission": "Transmission",
+    "Validation": "Validation",
+    "Rejet": "Rejet"
+  },
+  "organisation": [
+    {
+      "name": "Org1"
+    },
+    {
+      "name": "Org2"
+    }
+  ],
+
+  "admin": {
+    "instance": "1",
+    "done": "2",
+    "notes": "Signed"
+  },
+
+  "visitor": {
+    "instance": "0",
+    "done": "1",
+    "notes": "Transmitted"
+  },
+  "LABELS": {
+    "childSurname": "Nom de l'enfant - Surname of the child",
+    "childGivenName": "Prénoms de l'enfant - Given names of the child",
+    "childDateBirth": "Né(e) le - Born on the",
+    "childPlaceBirth": "A - At",
+    "childSex": "De sexe - Sex",
+
+    "fatherName": "De - Of",
+    "fatherBornAt": "Né à - Born At",
+    "fatherBornOn": "Le - On the",
+    "fatherResidence": "Domicilié à - Resident at",
+    "fatherOccupation": "Profession - Occupation",
+    "fatherNationality": "Nationalité - Nationality",
+    "fatherDocument": "Document de référence - Reference Document",
+
+    "motherName": "Et de - And of",
+    "motherBornAt": "Née à - Born at",
+    "motherBornOn": "Le - On the",
+    "motherResidence": "Domiciliée à - Resident at",
+    "motherOccupation": "Profession - Occupation",
+    "motherNationality": "Nationalité - Nationality",
+    "motherDocument": "Document de référence - Reference Document",
+
+    "declarer": "Sur la déclaration de - In accordance with the declaration of",
+    "registrationDate": "Dressé le - Drawn up on the",
+    "regitrationCenter": "CENTRE D'ETAT-CIVIL - CIVIL STATUS REGISTRATION CENTRE",
+    "officer": "Officier d'Etat-Civil - Civil Status Registrar",
+    "secretary": "Secretaire d'Etat-Civil - Secretary",
+    "document": "ACTE DE NAISSANCE / BIRTH CERTIFICATE",
+
+    "status": "STATUT / STATUS",
+    "observations": "OBSERVATIONS"
+  }
+}
