@@ -12,7 +12,7 @@ const TaskList = ({ tasks, onSelectTask, title,  handlePdf }) => {
          <hr />
          <br />
          <p></p>
-        <span className="alert alert-warning fs-3 container"> <FaExclamationTriangle /> {`Aucune tâche à afficher`}</span>
+        <span className="alert alert-warning fs-4 container"> <FaExclamationTriangle /> {`Aucune tâche à afficher`}</span>
       </div>
       );
   }

@@ -34,11 +34,12 @@ const DocDetails = ({docInfo}) => {
           <li><b>{PARAMS.LABELS.registrationDate} </b><em>{docInfo.registrationDate}</em> </li>
           <li> <b>{PARAMS.LABELS.regitrationCenter} </b><em>{docInfo.centre}</em> </li>
 
-          <li> <b>{PARAMS.LABELS.officer} </b><em>{docInfo.officer}</em> </li>
+        
           <li> <b>{PARAMS.LABELS.secretary} </b><em>{docInfo.secretary}</em> </li>
-          <hr />
-          <li> <b>{PARAMS.LABELS.status} </b><em>{docInfo.status}</em> </li>
-          <li> <b>{PARAMS.LABELS.observations} </b><em>{docInfo.observations}</em> </li>
+          <li> <b>{PARAMS.LABELS.officer} </b><em>{docInfo.officer}</em> </li>
+          {/* <hr /> */}
+          {/* <li> <b>{PARAMS.LABELS.status} </b><em>{docInfo.status}</em> </li> */}
+          {/* <li> <b>{PARAMS.LABELS.observations} </b><em>{docInfo.observations}</em> </li> */}
         </ul>
       </div>
        

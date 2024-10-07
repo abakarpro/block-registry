@@ -181,8 +181,8 @@ function DocForm(props) {
               </div>
             </div>
             <hr />
-            <div className="card border-primary">
-              <div className="card-header text-primary lead fw-bold">
+            <div className="card border-secondary">
+              <div className="card-header border-secondary text-primary lead fw-bold">
                 {`PERE DE L'ENFANT | FATHER OF THE CHILD`}
               </div>
               <div className="card-body">
@@ -239,10 +239,10 @@ function DocForm(props) {
             </div>
             <hr />
             <div className="card border-primary">
-            <div className="card-header text-primary lead fw-bold">
+            <div className="card-header border-primary text-primary lead fw-bold">
                 {`MERE DE L'ENFANT | MOTHER OF THE CHILD`}
               </div>
-              <div className="card-body">
+              <div className="card-body ">
               <div className='p-1'>
                   <Row className="g-2">
                     <Col md>
@@ -296,7 +296,7 @@ function DocForm(props) {
 
             <hr />
             <div className="card border-dark">
-            <div className="card-header text-primary lead fw-bold">
+            <div className="card-header border-dark text-primary lead fw-bold">
                 DECLARANT, SECRETAIRE & OFFICIER
               </div>
               <div className="card-body">

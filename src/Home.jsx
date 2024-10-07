@@ -23,12 +23,14 @@ function Home(props) {
             {props.user ? (
               props.user.role !== constants.ROLES.VISITOR && (
                 <>
-                  <Link to="/add-doc" className="buttonx">
-                    <div className="icon">
-                      <FaRegEdit />
-                    </div>
-                    <span> Nouvel Acte </span>
-                  </Link>
+                  {props.user.role !== constants.ROLES.OFFICER && (
+                    <Link to="/add-doc" className="buttonx">
+                      <div className="icon">
+                        <FaRegEdit />
+                      </div>
+                      <span> Nouvel Acte </span>
+                    </Link>
+                  )}
 
                   <Link to="/tasklist" className="buttonx">
                     <div className="icon">
@@ -77,16 +79,8 @@ function Home(props) {
     </div>
   );
 }
-
-
-
 Home.propTypes = {
-  user: PropTypes.object.isRequired,   
+  user: PropTypes.object.isRequired,
   onLogout: PropTypes.func.isRequired,
 };
-
-
-
-
-
 export default Home;

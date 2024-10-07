@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { FaHome,  FaFilePdf, FaFileAlt } from "react-icons/fa";
+import { FaHome,  FaFilePdf, FaFileAlt, FaTimesCircle, FaHistory } from "react-icons/fa";
 import generatePDF from "./generatePDF";
 import constants from "../config/constants.json";
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import DocDetails from './DocDetails';
+import ActeHistory from './ActeHistory';
 
 function DocList() {
   const [docNumber, setDocNumber] = useState('');
   const [selectedActe, setSelectedActe] = useState(null);
+  const [docHistory, setDocHistory] = useState(null);
+  const [showHistoryDialog, setShowHistoryDialog] = useState(false);
   const [actes, setActes] = useState([]);
   const [isLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -21,6 +24,40 @@ function DocList() {
   const handleHome = () => {
     // navigate('/');
     window.location.href = "/";
+  };
+
+  const getDocHistory = () => {
+    const queryParams = {
+      args: JSON.stringify([docNumber]),
+      peer: 'peer0.org1.example.com',
+      fcn: 'getHistoryForAsset'
+    };
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setErrorMessage('Jet de connexion manquant. Veuillez vous connecter d\'abord.');
+      return;
+    }
+
+    axios.get(`${url}/channels/mychannel/chaincodes/fabdoc`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      params: queryParams
+    })
+      .then(response => {
+        if (response.data.result) {
+          setDocHistory(response.data.result);
+          setShowHistoryDialog(true);
+        } else {
+          setErrorMessage('Aucun historique trouvé pour ce numéro du document.');
+        }
+      })
+      .catch(error => {
+        setErrorMessage('Une erreur s\'est produite lors de la récupération de l\'historique de ce document.');
+        console.error('Une erreur s\'est produite lors de la récupération de l\'historique de ce document:', error);
+      });
   };
 
   const handlePdf = () => {
@@ -77,12 +114,13 @@ function DocList() {
 
   // Fonction pour gérer le clic sur une ligne du tableau
   const handleRowClick = (acte) => {
+    console.log(acte)
     setDocNumber(acte.Key)
     const myActe = {
       
       docNumber: acte.Key,
-      lastName: acte.Record.surname,
-      firstName: acte.Record.givenName,
+      surname: acte.Record.surname,
+      givenName: acte.Record.givenName,
       dateBirth: acte.Record.dateBirth,
       placeBirth: acte.Record.placeBirth,
       gender: acte.Record.gender,
@@ -106,8 +144,8 @@ function DocList() {
       declarer: acte.Record.declarer,
       registrationDate: acte.Record.registrationDate,
       centre: acte.Record.centre,
-      officer: acte.Record.officer,
       secretary: acte.Record.secretary,  
+      officer: acte.Record.officer,     
   
   }
 
@@ -208,31 +246,32 @@ function DocList() {
               <div className="modal-content">
                 <div className="modal-header bg-dark text-light ">
                   <h5 className="modal-title text-center">Acte de naissance {docNumber}</h5>
-                  <button type="button" className="btn-close" onClick={() => setShowDialog(false)} aria-label="Close"></button>
+                  <button type="button" className="btn-close bg-secondary" onClick={() => setShowDialog(false)} aria-label="Close"></button>
                 </div>
 
 
                 <div className="card-body bg-secondary-subtle">
                   <DocDetails docInfo={selectedActe} />
-
-                  <div>
-
-
-                    <div className="card-footer d-flex justify-content-between bg-dark bg-gradient mt-0">
-                      <button onClick={() => setShowDialog(false)} className="btn btn-secondary rounded-5" aria-label='Close'>{`Fermer`}</button>
-                      <button type="button" className="btn btn-outline-primary rounded-5" >{`Obtenir l'historique`}</button>
-                      <button type="button" className='btn btn-outline-secondary rounded-5' onClick={()=>handleActePdf(selectedActe)} >Generer PDF</button>
+                 </div>
+                    
+                    <div className="card-footer d-flex justify-content-between bg-dark bg-gradient">
+                      <button onClick={() => setShowDialog(false)} className="btn btn-secondary rounded-5 m-1" aria-label='Close'> <FaTimesCircle /> {`Fermer`}</button>
+                      <button type="button" onClick={() => getDocHistory()} className="btn btn-outline-primary rounded-5 m-1" > <FaHistory /> {`Obtenir l'historique`}</button>
+                      <button type="button" className='btn btn-outline-secondary rounded-5 m-1' onClick={()=>handleActePdf(selectedActe)} > <FaFilePdf /> Generer PDF</button>
                     </div>
-                  </div>
-                </div>
+                 
+              
               </div>
             </div>
             </div>
             )
-                 }
+          }
 
 
-
+    {showHistoryDialog && (                  
+            <ActeHistory docInfo={docHistory} docNumber={docNumber} setShowHistoryDialog={setShowHistoryDialog} />             
+         
+    )}
 
 
 
@@ -241,5 +280,4 @@ function DocList() {
         </div>
  );
 }
-
-        export default DocList;
+export default DocList;

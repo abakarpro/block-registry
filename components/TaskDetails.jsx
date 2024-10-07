@@ -3,17 +3,18 @@ import PropTypes from "prop-types";
 import ActeDetails from "./ActeDetails ";
 import {
   FaCheckDouble,
+  FaFilePdf,
   FaHandPointLeft,
   FaPaperPlane,
   FaShareSquare,
 } from "react-icons/fa";
 import constants from "../config/constants.json";
 
-const TaskDetails = ({ task, handleSubmit, role }) => {
+const TaskDetails = ({ task, handleSubmit, handleActePdf, role }) => {
   if (!task) {
     return (
       <div className="task-details">
-        <span className=" fs-3 text-center">
+        <span className=" fs-4 text-center">
           <FaHandPointLeft /> Sélectionnez une tâche pour voir les détails
         </span>
       </div>
@@ -28,10 +29,12 @@ const TaskDetails = ({ task, handleSubmit, role }) => {
             {" "}
             {task.Record.surname + " " + task.Record.givenName}{" "}
           </div>
-
-          {task.Record.status === constants.role.secretary.instance &&
+<div>
+ {task.Record.status === constants.role.secretary.instance &&
             role === constants.ROLES.SECRETARY && (
-              <button className="btn btn-outline-primary rounded-5 fs-5 fs-bold">
+              <button type='submit' 
+              onClick={() => handleSubmit()}
+              className="btn btn-outline-primary rounded-5 fs-5 fs-bold">
                 {" "}
                 <FaPaperPlane /> Transmettre{" "}
               </button>
@@ -56,9 +59,15 @@ const TaskDetails = ({ task, handleSubmit, role }) => {
                 className="btn btn-outline-primary rounded-5 fs-5 fs-bold"
               >
                 {" "}
-                <FaCheckDouble /> VALIDER{" "}
+                <FaCheckDouble /> Valider {" "}
               </button>
             )}
+            <button type="button" className="btn btn-outline-secondary rounded-5"
+            onClick={() => handleActePdf(task)}>
+              <FaFilePdf /> PDF
+            </button>
+</div>
+         
         </div>
         <div className="card-body alert bg-secondary-subtle">
           <ActeDetails docInfo={task} />
@@ -100,6 +109,7 @@ TaskDetails.propTypes = {
     }),
   }),
   handleSubmit: PropTypes.func.isRequired,
+  handleActePdf: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   role: PropTypes.string.isRequired,
 };

@@ -1,5 +1,6 @@
 //import React from 'react';
 // import { FaUserCog } from 'react-icons/fa';
+import PropTypes from "prop-types"; // Import de PropTypes
 import PARAMS from './constants';
 const ActeDetails = ({docInfo}) => {
   
@@ -40,13 +41,19 @@ const ActeDetails = ({docInfo}) => {
           <li> <b>{PARAMS.LABELS.officer} : </b><em>{docInfo.Record.officer}</em> </li>
           <li> <b>{PARAMS.LABELS.secretary} : </b><em>{docInfo.Record.secretary}</em> </li>
 
-          <hr />
+          {/* <hr />
           <li> <b>{PARAMS.LABELS.status} : </b><em>{docInfo.Record.status}</em> </li>
-          <li> <b>{PARAMS.LABELS.observations} : </b><em>{docInfo.Record.observations}</em> </li>
+          <li> <b>{PARAMS.LABELS.observations} : </b><em>{docInfo.Record.observations}</em> </li> */}
         </ul>
       </div>
        
     );
 };
 
+
+ActeDetails.propTypes = {
+ // docInfo: PropTypes.shape({}),
+ // user: PropTypes.object.isRequired,
+  // onLogout: PropTypes.func.isRequired,
+};
 export default ActeDetails;

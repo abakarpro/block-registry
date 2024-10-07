@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types"; // Import de PropTypes
-
 import constants from "../config/constants.json";
+import generateActePDF from "./generatePDF";
 
 //import { Link } from "react-router-dom";
 import axios from "axios";
-import { FaHome,  FaTasks, FaList, FaExclamationTriangle, FaCheckDouble } from "react-icons/fa";
+import { FaHome,  FaTasks, FaList, FaExclamationTriangle, FaCheckDouble, FaRegEdit } from "react-icons/fa";
 //import generatePDF from "./generatePDF";
 
 import jsPDF from "jspdf";
@@ -13,6 +13,7 @@ import "jspdf-autotable";
 
 import TaskDetails from "./TaskDetails";
 import TaskList from "./TaskList";
+import { Link } from "react-router-dom";
 
 
 function DocTaskList(props) {
@@ -77,6 +78,15 @@ function DocTaskList(props) {
     });
     doc.save(title+".pdf");
   };
+
+  const handleActePdf = (myActe) => {
+    //const {jsPDF} = window.jspdf;
+    //console.log(myActe.Key);
+    generateActePDF({
+        data: myActe.Record,
+        id: myActe.Key
+      });
+  }
 
   useEffect(() => {
     async function getDocsByCentre() {
@@ -333,7 +343,19 @@ function DocTaskList(props) {
         </div>
 
       <div className="col row">
-        <div className="col text-end">
+      <div className="col text-end">
+          {" "}
+
+
+          {props.user.role !== constants.ROLES.OFFICER && (
+                    <Link to="/add-doc" className="btn btn-sm btn-outline-dark rounded-3 m-2">
+                      
+                        <FaRegEdit />
+                     
+                      <span> Nouvel Acte </span>
+                    </Link>
+                  )}        
+        
           {" "}
           <button
             onClick={handleHome}
@@ -357,6 +379,7 @@ function DocTaskList(props) {
         <TaskDetails
           task={selectedTask}
           handleSubmit={handleSubmit}
+          handleActePdf={handleActePdf}
           role={props.user.role}         
         />
         {/* 
